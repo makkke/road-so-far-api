@@ -1,0 +1,9 @@
+Dockerfile
+.gitignore
+README.md
+.vs
+.git
+*.sublime-workspace
+*.lock.json
+*.results.xml
+node_modules
