@@ -11,7 +11,6 @@ const FuelPurchaseSchema = new mongoose.Schema({
   volume: Number,
   total: Number,
   createdAt: Date,
-
 })
 
 /**

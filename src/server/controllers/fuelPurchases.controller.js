@@ -40,7 +40,7 @@ function update(req, res, next) {
 function remove(req, res, next) {
   const fuelPurchase = req.fuelPurchase
   fuelPurchase.removeAsync()
-    .then(() => res.status(httpStatus.NO_CONTENT).end())
+    .then(() => res.json({}))
     .error(e => next(e))
 }
 
