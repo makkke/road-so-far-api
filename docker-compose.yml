@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  api:
+    image: cityofsurrey/zephyr:1.0.2
+    environment:
+      - TZ=America/Los_Angeles
+    depends_on:
+      - morellonomicon
+
+  morellonomicon:
+    image: cityofsurrey/morellonomicon:latest
+    environment:
+      - NODE_ENV=production
+      - TZ=America/Los_Angeles
+    depends_on:
+      - db
+
+  db:
+    image: mongo:3.3
+    environment:
+      - TZ=America/Los_Angeles
