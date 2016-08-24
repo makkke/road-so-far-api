@@ -3,31 +3,28 @@ import mongoose, { Schema } from 'mongoose'
 import httpStatus from 'http-status'
 import APIError from '../helpers/APIError'
 
-const FuelPurchaseSchema = new mongoose.Schema({
+const ApiKeySchema = new mongoose.Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
 
-  region: String,
-  volume: Number,
-  total: Number,
-  createdAt: Date,
+  token: String,
 })
 
 /**
  * Statics
  */
-FuelPurchaseSchema.statics = {
+ApiKeySchema.statics = {
   get(id) {
     return this.findById(id).execAsync()
-      .then(fuelPurchase => {
-        if (fuelPurchase) return fuelPurchase
+      .then(apiKey => {
+        if (apiKey) return apiKey
 
-        const err = new APIError('Fuel purchase is not found', httpStatus.NOT_FOUND)
+        const err = new APIError('Api Key is not found', httpStatus.NOT_FOUND)
         return Promise.reject(err)
       })
   },
 }
 
-FuelPurchaseSchema.set('toJSON', {
+ApiKeySchema.set('toJSON', {
   transform: (doc, ret) => {
     /* eslint-disable no-param-reassign,no-underscore-dangle */
     ret.id = ret._id
@@ -37,4 +34,4 @@ FuelPurchaseSchema.set('toJSON', {
   },
 })
 
-export default mongoose.model('FuelPurchase', FuelPurchaseSchema)
+export default mongoose.model('ApiKey', ApiKeySchema)

@@ -20,7 +20,6 @@ router.route('/:fuelPurchaseId')
   .put(auth, validate(validator.update), controller.update)
   .delete(auth, controller.remove)
 
-// load service when API with fuelPurchaseId route parameter is called
 router.param('fuelPurchaseId', controller.load)
 
 export default router

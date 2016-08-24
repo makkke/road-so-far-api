@@ -34,9 +34,7 @@ export function login(req, res) {
     }
 
     const token = user.generateJwt()
-    res.status(httpStatus.OK).json({
-      token,
-    })
+    res.status(httpStatus.OK).json({ token })
   })(req, res)
 }
 
