@@ -1,0 +1,100 @@
+service: road-so-far-api
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+# custom:
+#   babelPresets:
+#     - latest
+#
+# plugins:
+#   - serverless-babel-plugin
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  stage: dev
+  region: us-west-2
+  versionFunctions: false
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - dynamodb:DescribeTable
+  #       - dynamodb:Query
+  #       - dynamodb:Scan
+  #       - dynamodb:GetItem
+  #       - dynamodb:PutItem
+  #       - dynamodb:UpdateItem
+  #       - dynamodb:DeleteItem
+  #     Resource: "arn:aws:dynamodb:us-west-2:*:*"
+
+functions:
+  # create:
+  #   handler: fuelPurchases/create.create
+  #   events:
+  #     - http:
+  #         path: fuelPurchases
+  #         method: post
+  #         cors: true
+  #
+  # list:
+  #   handler: fuelPurchases/list.list
+  #   events:
+  #     - http:
+  #         path: todos
+  #         method: get
+  #         cors: true
+
+  # get:
+  #   handler: todos/get.get
+  #   events:
+  #     - http:
+  #         path: todos/{id}
+  #         method: get
+  #         cors: true
+  #
+  # update:
+  #   handler: todos/update.update
+  #   events:
+  #     - http:
+  #         path: todos/{id}
+  #         method: put
+  #         cors: true
+  #
+  # delete:
+  #   handler: todos/delete.delete
+  #   events:
+  #     - http:
+  #         path: todos/{id}
+  #         method: delete
+  #         cors: true
+  # hello:
+  #   handler: handler.hello
+  #   events:
+  #     - http:
+  #         path: hello
+  #         method: get
+  #         cors: true
+  graphql:
+    handler: handler.graphql
+    events:
+      - http:
+          path: graphql
+          method: get
+          cors: true
+
+# resources:
+#   Resources:
+#     FuelPurchasesDynamoDbTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           - AttributeName: id
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: id
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: 'fuelPurchases'
