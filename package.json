@@ -16,6 +16,8 @@
     "url": "https://github.com/makkke/road-so-far-api/issues"
   },
   "homepage": "https://github.com/makkke/road-so-far-api#readme",
-  "dependencies": {},
+  "dependencies": {
+    "graphql": "^0.9.1"
+  },
   "devDependencies": {}
 }

@@ -60,17 +60,25 @@
             {
               "Effect": "Allow",
               "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream"
-              ],
-              "Resource": "arn:aws:logs:us-west-2:*:*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
+                "logs:CreateLogStream",
                 "logs:PutLogEvents"
               ],
-              "Resource": "arn:aws:logs:us-west-2:*:*"
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    ":",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "GraphqlLogGroup",
+                          "Arn"
+                        ]
+                      },
+                      "*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -81,6 +89,12 @@
         ]
       }
     },
+    "GraphqlLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/road-so-far-api-dev-graphql"
+      }
+    },
     "GraphqlLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -88,7 +102,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/road-so-far-api/dev/1485725856991-2017-01-29T21:37:36.991Z/road-so-far-api.zip"
+          "S3Key": "serverless/road-so-far-api/dev/1485988774911-2017-02-01T22:39:34.911Z/road-so-far-api.zip"
         },
         "FunctionName": "road-so-far-api-dev-graphql",
         "Handler": "handler.graphql",
@@ -106,16 +120,6 @@
         "IamPolicyLambdaExecution",
         "IamRoleLambdaExecution"
       ]
-    },
-    "GraphqlLambdaVersionWxT4vWLDqHjMPLExKrHIykq13LhGI35FOE9yhplbAI": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "GraphqlLambdaFunction"
-        },
-        "CodeSha256": "Wx+T4vWLDqHjMPLExKrHIykq13LhGI35FOE9yhplbAI="
-      }
     },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
@@ -149,7 +153,8 @@
             "ResponseParameters": {
               "method.response.header.Access-Control-Allow-Origin": true,
               "method.response.header.Access-Control-Allow-Headers": true,
-              "method.response.header.Access-Control-Allow-Methods": true
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Credentials": true
             },
             "ResponseModels": {}
           }
@@ -166,7 +171,8 @@
               "ResponseParameters": {
                 "method.response.header.Access-Control-Allow-Origin": "'*'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                "method.response.header.Access-Control-Allow-Credentials": "'false'"
               },
               "ResponseTemplates": {
                 "application/json": ""
@@ -182,10 +188,10 @@
         }
       }
     },
-    "ApiGatewayMethodGraphqlGet": {
+    "ApiGatewayMethodGraphqlPost": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
-        "HttpMethod": "GET",
+        "HttpMethod": "POST",
         "RequestParameters": {},
         "ResourceId": {
           "Ref": "ApiGatewayResourceGraphql"
@@ -220,7 +226,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1485725857003": {
+    "ApiGatewayDeployment1485988774928": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -229,7 +235,7 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodGraphqlGet"
+        "ApiGatewayMethodGraphqlPost"
       ]
     },
     "GraphqlLambdaPermissionApiGateway": {
@@ -270,21 +276,6 @@
     "ServerlessDeploymentBucketName": {
       "Value": {
         "Ref": "ServerlessDeploymentBucket"
-      }
-    },
-    "GraphqlLambdaFunctionArn": {
-      "Description": "Lambda function info",
-      "Value": {
-        "Fn::GetAtt": [
-          "GraphqlLambdaFunction",
-          "Arn"
-        ]
-      }
-    },
-    "GraphqlLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "GraphqlLambdaVersionWxT4vWLDqHjMPLExKrHIykq13LhGI35FOE9yhplbAI"
       }
     },
     "ServiceEndpoint": {

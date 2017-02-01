@@ -42,13 +42,13 @@
 //   })
 // })
 
-// var graphql = require('graphql')
-//
-// var schema = graphql.buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `)
+const { graphql, buildSchema } = require('graphql')
+
+var schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`)
 
 // var schema = buildSchema(`
 //   type Query {
@@ -58,11 +58,11 @@
 //   }
 // `)
 
-// var root = {
-//   hello: () => {
-//     return 'Hello world!'
-//   },
-// }
+const root = {
+  hello: () => {
+    return 'Hello world!'
+  },
+}
 
 // var root = {
 //   quoteOfTheDay: () => {
@@ -77,16 +77,22 @@
 // }
 
 module.exports.graphql = function(event, context, callback) {
-  console.log('Received event', event)
+  console.log('Received event:', event)
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Hello, the current time is ${new Date().toTimeString()}.`,
-    }),
-  }
+  graphql(schema, '{ hello }', root)
+    .then((res) => {
+      console.log('Received resposne from graphql:', res)
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: `Hello, the current time is ${new Date().toTimeString()}.`,
+        }),
+      }
 
-  callback(null, response)
+      callback(null, response)
+    })
+    .catch(err => callback(err))
+
 
   // graphql(schema, '{ hello }', root).then((response) => {
   //   console.log(response);
