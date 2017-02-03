@@ -5,9 +5,12 @@ frameworkVersion: ">=1.5.0 <2.0.0"
 provider:
   name: aws
   runtime: nodejs4.3
+  region: us-west-2
 
 functions:
-  api:
+  auth:
+    handler: handler.auth
+  graphql:
     handler: handler.graphql
     events:
     - http:
@@ -15,6 +18,4 @@ functions:
         method: post
         cors: true
         integration: lambda
-        response:
-          headers:
-            Access-Control-Allow-Origin: "'*'"
+        authorizer: auth
