@@ -1,5 +1,7 @@
 'use strict' // eslint-disable-line
 
+require('dotenv').config()
+
 const auth = require('./auth/index').default // eslint-disable-line import/no-unresolved
 const graphql = require('./graphql/index').default // eslint-disable-line import/no-unresolved
 
