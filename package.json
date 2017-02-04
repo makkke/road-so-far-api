@@ -4,10 +4,13 @@
   "description": "API service for Road So Far",
   "main": "handler.js",
   "scripts": {
-    "build": "NODE_ENV=production babel --out-dir='api/graphql' ./graphql",
+    "build": "npm run build:node_modules && npm run build:graphql && npm run build:auth",
     "build:node_modules": "cd api && yarn && cd ..",
-    "deploy": "npm run build && npm run build:node_modules && cd api && serverless --stage=development deploy",
-    "lint": "eslint ."
+    "build:graphql": "NODE_ENV=production babel --out-dir='api/graphql' ./graphql",
+    "build:auth": "NODE_ENV=production babel --out-dir='api/auth' ./auth",
+    "deploy": "npm run build && cd api && serverless --stage=development deploy",
+    "lint": "eslint .",
+    "playground": "babel-node ./playground.js --presets=es2015,stage-0"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 const AUTH0_CLIENT_ID = 'vwqeSmdGge6jdXzDwTnTQE3K7KOS3n0H'
-const AUTH0_CLIENT_SECRET = 'oCqQ8_Mn9amMipAZd8fNCABQJHArE4RCy0YgG902YD-M3jb_tnw80WOX2-m2XK4T'
+const AUTH0_CLIENT_SECRET = '-Ga1qtbR2hp9FWiHdF7mL8xRKvrja612xJszxN1utBOy64pDhAs8zpa1X3z17gFL'
 
 const generatePolicy = (principalId, effect, resource) => {
   const authResponse = {
@@ -33,7 +33,7 @@ export default event => (
 
     const token = event.authorizationToken.substring(7) // remove "bearer " from token
     const options = { audience: AUTH0_CLIENT_ID }
-    jwt.verify(token, new Buffer(AUTH0_CLIENT_SECRET, 'base64'), options, (err, decoded) => {
+    jwt.verify(token, AUTH0_CLIENT_SECRET, options, (err, decoded) => {
       if (err) {
         reject(new Error('Unauthorized'))
         return
