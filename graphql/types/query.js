@@ -1,20 +1,21 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql'
+import { GraphQLObjectType, GraphQLList } from 'graphql'
+
+// import tables from './database/tables'
+
 // import MeType from './me'
-// import UserType from './user'
-// import db from '../database'
+import FuelPurchaseType from './fuelPurchase'
+import FuelPurchaseService from '../services/fuelPurchases'
 
 const QueryType = new GraphQLObjectType({
-  name: 'Query',
+  name: 'RoadSoFarApi',
+  description: 'Root of the Schema',
   fields: () => ({
-    me: {
-      // type: MeType,
-      type: GraphQLString,
-      resolve: () => 'privet',
+    fuelPurchases: {
+      name: 'FuelPurchasesQuery',
+      description: 'Retrieve fuel purchases',
+      type: new GraphQLList(FuelPurchaseType),
+      resolve: () => FuelPurchaseService.getAll(),
     },
-    // viewer: {
-    //   type: UserType,
-    //   resolve: (_, _args, context) => db.getViewer({}, context),
-    // },
   }),
 })
 

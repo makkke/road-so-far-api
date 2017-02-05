@@ -7,6 +7,17 @@ provider:
   runtime: nodejs4.3
   region: us-west-2
   stage: development
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-west-2:*:*"
 
 functions:
   auth:
@@ -20,3 +31,20 @@ functions:
         cors: true
         integration: lambda
         authorizer: auth
+
+# resources:
+#   Resources:
+#     FuelPurchasesDynamoDbTable:
+#       Type: 'AWS:DynamoDB:Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           - AttributeName: id
+#             AttributeType: S
+#         KeySchema:
+#           - AttributeName: id
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: 'fuelPurchases'
