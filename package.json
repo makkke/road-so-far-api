@@ -4,6 +4,7 @@
   "description": "API service for Road So Far",
   "main": "handler.js",
   "scripts": {
+    "start": "nodemon index.js --exec babel-node | bunyan",
     "build": "npm run build:node_modules && npm run build:graphql && npm run build:auth",
     "build:node_modules": "cd api && yarn && cd ..",
     "build:graphql": "NODE_ENV=production babel --out-dir='api/graphql' ./graphql",
@@ -28,14 +29,19 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "bunyan": "^1.8.5",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
+    "express": "^4.14.1",
+    "express-graphql": "^0.6.3",
+    "gql-merge": "^0.0.4",
     "graphql": "^0.9.1",
     "graphql-relay": "^0.5.1",
-    "jsonwebtoken": "^7.2.1"
+    "jsonwebtoken": "^7.2.1",
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {}
 }

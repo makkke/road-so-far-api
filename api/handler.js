@@ -2,8 +2,8 @@
 
 require('dotenv').config()
 
-const auth = require('./auth/index').default // eslint-disable-line import/no-unresolved
-const graphql = require('./graphql/index').default // eslint-disable-line import/no-unresolved
+const auth = require('./auth/index').default // eslint-disable-line
+const graphql = require('./graphql/index').default // eslint-disable-line
 
 module.exports.auth = (event, context, callback) => {
   auth(event)
