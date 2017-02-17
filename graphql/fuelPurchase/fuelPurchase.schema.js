@@ -1,4 +1,4 @@
-// import { getAddress, getAllAddresses } from './addresses.model'
+import { getAll, create } from './fuelPurchase.service'
 // import addresses from './addresses.dummydata'
 
 const fuelPurchases = [
@@ -13,6 +13,7 @@ export const fuelPurchaseSchema = `
     volume: Float!
   }
   type Query {
+    fuelPurchases: [FuelPurchase]
     fuelPurchase(id: Int!): FuelPurchase
   }
   type Mutation {
@@ -21,15 +22,10 @@ export const fuelPurchaseSchema = `
 `
 
 export const fuelPurchaseRoot = {
+  fuelPurchases: async () => getAll(),
   fuelPurchase: ({ id }) => fuelPurchases.find(x => x.id === id),
-  createFuelPurchase: ({ volume }) => {
-    const fuelPurchase = {
-      id: fuelPurchases.length,
-      volume,
-    }
-    fuelPurchases.push(fuelPurchase)
-
-    return fuelPurchase
+  createFuelPurchase: (fuelPurchase) => {
+    return create(fuelPurchase)
   },
 }
 
