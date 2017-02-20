@@ -33,6 +33,7 @@
     "body-parser": "^1.16.1",
     "bunyan": "^1.8.5",
     "cors": "^2.8.1",
+    "dotenv": "^4.0.0",
     "dynogels": "^7.0.0",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",

@@ -3,11 +3,15 @@ import { graphqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import jwt from 'express-jwt'
 import cors from 'cors'
+import dotenv from 'dotenv'
 
 import log from './utils/log'
 import config from './config'
 import schema from './schema'
 import dynamodbConnector from './connectors/dynamodb'
+
+// Load local configuration to environment
+dotenv.config()
 
 const app = express()
 
