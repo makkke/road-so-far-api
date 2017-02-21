@@ -1,3 +1,4 @@
+import fs from 'fs'
 import express from 'express'
 import { graphqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
@@ -21,9 +22,11 @@ app.use(cors())
 
 dynamodbConnector.connect()
 
+const certificate = fs.readFileSync('public.pem')
 const auth = jwt({
   audience: process.env.AUTH0_CLIENT_ID,
-  secret: process.env.AUTH0_CLIENT_SECRET,
+  secret: certificate,
+  algorithms: ['RS256'],
 })
 
 app.use('/graphql', auth, graphqlExpress((req) => {
