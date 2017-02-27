@@ -15,13 +15,13 @@ import dynamodbConnector from './connectors/dynamodb'
 dotenv.config()
 
 const app = express()
-
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
 dynamodbConnector.connect()
 
+// Create authentication middleware
 const certificate = fs.readFileSync('public.pem')
 const auth = jwt({
   audience: process.env.AUTH0_CLIENT_ID,
@@ -56,5 +56,5 @@ app.use((err, req, res, next) => { // eslint-disable-line
   res.status(500).json(err)
 })
 
-const port = config.port
-app.listen(port, () => log.info('API started 🚀 ', { port }))
+const { port, environment } = config
+app.listen(port, () => log.info('API started 🚀 ', { port, environment }))

@@ -1,0 +1,24 @@
+type User {
+  id: String!
+}
+
+type Query {
+  # List fuel purchases
+  fuelPurchases: [FuelPurchase]
+
+  # View fuel purchase details
+  fuelPurchase(id: ID!): FuelPurchase
+
+  # View logged in user
+  currentUser: User
+}
+
+type Mutation {
+  # Create new fuel purchase
+  createFuelPurchase(input: FuelPurchaseInput!): FuelPurchase
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

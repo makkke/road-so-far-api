@@ -4,7 +4,7 @@
   "description": "API service for Road So Far",
   "main": "handler.js",
   "scripts": {
-    "dev": "nodemon src/index.js --watch src --exec babel-node | bunyan",
+    "start:dev": "NODE_ENV=development PORT=8090 nodemon src/index.js --watch src --exec babel-node | bunyan",
     "start": "nodemon index.js --exec babel-node | bunyan",
     "build": "npm run build:node_modules && npm run build:graphql && npm run build:auth",
     "build:node_modules": "cd api && yarn && cd ..",
@@ -12,7 +12,10 @@
     "build:auth": "NODE_ENV=production babel --out-dir='api/auth' ./auth",
     "deploy": "npm run build && cd api && serverless --stage=development deploy",
     "lint": "eslint .",
-    "playground": "babel-node ./playground.js --presets=es2015,stage-0"
+    "playground": "babel-node ./playground.js --presets=es2015,stage-0",
+    "clean": "rm -rf ./dist",
+    "test:unit": "NODE_ENV=test ava tests/unit/**/*.test.js",
+    "test:integration": "NODE_ENV=test ava --serial --fail-fast tests/integration/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +27,12 @@
     "url": "https://github.com/makkke/road-so-far-api/issues"
   },
   "homepage": "https://github.com/makkke/road-so-far-api#readme",
+  "ava": {
+    "require": "babel-register",
+    "babel": "inherit"
+  },
   "dependencies": {
+    "ava": "^0.18.2",
     "babel-cli": "^6.22.2",
     "babel-eslint": "^7.1.1",
     "babel-polyfill": "^6.22.0",
