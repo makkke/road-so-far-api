@@ -3,14 +3,15 @@ import { FuelPurchase } from '../connectors/dynamodb'
 export const queryFuelPurchases = userId => (
   new Promise((resolve, reject) => {
     FuelPurchase
-      .scan()
-      .where('userId').equals(userId)
-      .loadAll()
+      .query(userId)
+      .usingIndex('CreatedAtIndex')
+      .ascending()
       .exec((err, result) => {
         if (err) {
           reject(err)
           return
         }
+        console.log(result)
 
         resolve(result.Items.map(x => x.attrs))
       })

@@ -4,7 +4,8 @@ import Joi from 'joi'
 import log from '../utils/log'
 
 export const FuelPurchase = dynogels.define('FuelPurchase', {
-  hashKey: 'id',
+  hashKey: 'userId',
+  rangeKey: 'id',
   timestamps: true,
   schema: {
     id: dynogels.types.uuid(),
@@ -13,6 +14,9 @@ export const FuelPurchase = dynogels.define('FuelPurchase', {
     region: Joi.string(),
     city: Joi.string(),
   },
+  indexes: [{
+    hashKey: 'userId', rangeKey: 'createdAt', name: 'CreatedAtIndex', type: 'global',
+  }],
   tableName: 'fuelPurchases',
 })
 
