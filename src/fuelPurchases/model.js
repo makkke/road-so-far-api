@@ -1,5 +1,4 @@
 import { FuelPurchase } from '../connectors/dynamodb'
-import { quantityToLiters } from '../utils/convert'
 
 export const queryFuelPurchases = userId => (
   new Promise((resolve, reject) => {
@@ -32,10 +31,9 @@ export const findFuelPurchaseById = id => (
   })
 )
 
-export const createFuelPurchase = (input, userId) => (
+export const createFuelPurchase = (userId, fuelPurchase) => (
   new Promise((resolve, reject) => {
-    const quantity = quantityToLiters(input.quantity)
-    const savedFuelPurchase = new FuelPurchase({ userId, quantity })
+    const savedFuelPurchase = new FuelPurchase({ ...fuelPurchase, userId })
     savedFuelPurchase.save((err) => {
       if (err) {
         reject(err)

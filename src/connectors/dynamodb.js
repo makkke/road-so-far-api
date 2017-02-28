@@ -10,6 +10,8 @@ export const FuelPurchase = dynogels.define('FuelPurchase', {
     id: dynogels.types.uuid(),
     userId: Joi.string(),
     quantity: Joi.number(), // in litres
+    region: Joi.string(),
+    city: Joi.string(),
   },
   tableName: 'fuelPurchases',
 })
@@ -20,7 +22,7 @@ const connect = () => {
 
   dynogels.createTables((err) => {
     if (err) {
-      log.error('Can not create tables', err)
+      log.error('Could not create tables', err)
       return
     }
 
