@@ -1,5 +1,6 @@
 'use strict' // eslint-disable-line
 
+// Load local configuration to environment
 require('dotenv').config()
 
 const auth = require('./auth/index').default // eslint-disable-line
@@ -12,6 +13,8 @@ module.exports.auth = (event, context, callback) => {
 }
 
 module.exports.graphql = (event, context, callback) => {
+  console.log('event', event.principalId)
+  console.log('context', context)
   graphql(event.body.query, event.body.variables)
     .then(response => callback(null, response))
     .catch(error => callback(error))

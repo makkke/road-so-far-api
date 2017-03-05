@@ -8,7 +8,6 @@ import { createFuelPurchase, queryFuelPurchases, findFuelPurchaseById } from './
 import { mapQuantityToLiters } from './fuelPurchases/utils'
 
 const rootSchema = [fs.readFileSync(join(__dirname, 'schema.graphql'), 'utf-8')]
-
 const rootResolvers = {
   Query: {
     fuelPurchases: (root, args, context) => queryFuelPurchases(context.user.id),

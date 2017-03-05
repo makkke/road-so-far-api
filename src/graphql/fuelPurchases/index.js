@@ -4,7 +4,6 @@ import { join } from 'path'
 import { convertLitersToGallons } from './utils'
 
 export const schema = [fs.readFileSync(join(__dirname, 'schema.graphql'), 'utf-8')]
-
 export const resolvers = {
   FuelPurchase: {
     quantity: (root, args) => {

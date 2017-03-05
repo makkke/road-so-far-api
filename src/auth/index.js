@@ -1,3 +1,5 @@
+import fs from 'fs'
+import { join } from 'path'
 import jwt from 'jsonwebtoken'
 
 const generatePolicy = (principalId, effect, resource) => {
@@ -29,8 +31,13 @@ export default event => (
     }
 
     const token = event.authorizationToken.substring(7) // remove "bearer " from token
-    const options = { audience: process.env.AUTH0_CLIENT_ID }
-    jwt.verify(token, process.env.AUTH0_CLIENT_SECRET, options, (err, decoded) => {
+    const certificate = fs.readFileSync(join(__dirname, '../public.pem'))
+    const options = {
+      audience: process.env.AUTH0_CLIENT_ID,
+      algorithm: 'RS256',
+    }
+
+    jwt.verify(token, certificate, options, (err, decoded) => {
       if (err) {
         reject(new Error('Unauthorized'))
         return

@@ -10,7 +10,7 @@
     "build:node_modules": "cd api && yarn && cd ..",
     "build:graphql": "NODE_ENV=production babel --out-dir='api/graphql' ./graphql",
     "build:auth": "NODE_ENV=production babel --out-dir='api/auth' ./auth",
-    "deploy": "npm run build && cd api && serverless --stage=development deploy",
+    "deploy": "npm run build && cd api && serverless --stage=${DEPLOY_STAGE:-development} deploy",
     "lint": "eslint .",
     "playground": "babel-node ./playground.js --presets=es2015,stage-0",
     "clean": "rm -rf ./dist",
