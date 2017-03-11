@@ -8,8 +8,8 @@
     "start": "nodemon index.js --exec babel-node | bunyan",
     "build": "npm run build:node_modules && npm run build:graphql && npm run build:auth",
     "build:node_modules": "cd api && yarn && cd ..",
-    "build:graphql": "NODE_ENV=production babel --out-dir='api/graphql' ./graphql",
-    "build:auth": "NODE_ENV=production babel --out-dir='api/auth' ./auth",
+    "build:graphql": "NODE_ENV=production babel --out-dir='api/graphql' ./src/graphql",
+    "build:auth": "NODE_ENV=production babel --out-dir='api/auth' ./src/auth",
     "deploy": "npm run build && cd api && serverless --stage=${DEPLOY_STAGE:-development} deploy",
     "lint": "eslint .",
     "playground": "babel-node ./playground.js --presets=es2015,stage-0",
@@ -42,7 +42,6 @@
     "bunyan": "^1.8.5",
     "cors": "^2.8.1",
     "dotenv": "^4.0.0",
-    "dynogels": "^7.0.0",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -59,7 +58,8 @@
     "joi": "^10.2.2",
     "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.4",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "serverless-dynamodb-local": "^0.2.19"
   },
   "devDependencies": {}
 }

@@ -1,6 +1,6 @@
-// import { graphql } from 'graphql'
-// import schema from './schema'
+import { graphql } from 'graphql'
+import schema from './schema'
 
-export default (query, variables) => (
-  graphql(schema, query, null, {}, variables)
+export default (query, variables, context) => (
+  graphql(schema, query, null, context, variables)
 )

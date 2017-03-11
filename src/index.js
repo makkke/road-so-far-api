@@ -8,8 +8,8 @@ import dotenv from 'dotenv'
 
 import log from './utils/log'
 import config from './config'
-import schema from './schema'
-import dynamodbConnector from './connectors/dynamodb'
+import schema from './graphql/schema'
+// import dynamodbConnector from './graphql/connectors/dynamodb'
 
 // Load local configuration to environment
 dotenv.config()
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
-dynamodbConnector.connect()
+// dynamodbConnector.connect()
 
 // Create authentication middleware
 const certificate = fs.readFileSync('public.pem')

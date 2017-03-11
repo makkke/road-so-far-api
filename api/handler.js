@@ -1,5 +1,7 @@
 'use strict' // eslint-disable-line
 
+require('babel-polyfill') // needed to for async/await
+
 // Load local configuration to environment
 require('dotenv').config()
 
@@ -13,9 +15,9 @@ module.exports.auth = (event, context, callback) => {
 }
 
 module.exports.graphql = (event, context, callback) => {
-  console.log('event', event.principalId)
-  console.log('context', context)
-  graphql(event.body.query, event.body.variables)
+  graphql(event.body.query, event.body.variables, {
+    user: { id: event.principalId },
+  })
     .then(response => callback(null, response))
     .catch(error => callback(error))
 }
