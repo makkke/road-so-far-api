@@ -12,7 +12,7 @@ export const queryFuelPurchases = userId => (
       },
       ScanIndexForward: false,
     }
-    
+
     doc.query(params, (err, data) => {
       if (err) {
         reject(err)
