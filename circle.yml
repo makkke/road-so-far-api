@@ -31,10 +31,12 @@ stages:
         shell: /bin/bash
         command: yarn run build
 
-      # - name: Deploy to production
-      #   type: deploy
-      #   shell: /bin/bash
-      #   command: |
-      #     if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #       aws s3 sync ./public s3://app.roadsofar.com/ --delete
-      #     fi
+      # TODO: add integration testing
+
+      - name: Deploy to production
+        type: deploy
+        shell: /bin/bash
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            yarn run deploy:production
+          fi

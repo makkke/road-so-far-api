@@ -1,8 +1,6 @@
 method: bundle
 
 babel: true
-uglify: true
-uglifyModules: true
 sourceMaps: false
 
 modules:
