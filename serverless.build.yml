@@ -5,6 +5,7 @@ sourceMaps: false
 
 include:
   - .babelrc
+  - .env
 
 functions:
   auth:
