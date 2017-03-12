@@ -38,7 +38,6 @@ stages:
         shell: /bin/bash
         command: |
           # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            echo "AUTH0_CLIENT_ID=$SAUTH0_CLIENT_ID\nAUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET" >> .env
-            cat .env
+            echo "AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID\nAUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET" >> .env
             yarn run deploy:production
           # fi
