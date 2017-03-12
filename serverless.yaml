@@ -4,6 +4,8 @@ frameworkVersion: ">=1.5.0 <2.0.0"
 
 plugins:
   - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-build-plugin
 
 custom:
   dynamodb:
@@ -11,6 +13,9 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
+  serverless-offline:
+    babelOptions:
+      presets: ['es2015', 'stage-0']
 
 provider:
   name: aws
@@ -18,7 +23,7 @@ provider:
   region: us-west-2
   stage: development
   environment:
-    DYNAMODB_FUEL_PURCHASES_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    DYNAMODB_FUEL_PURCHASES_TABLE: rsf-${opt:stage, self:provider.stage}-fuelPurchases
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -32,9 +37,9 @@ provider:
 
 functions:
   auth:
-    handler: handler.auth
+    handler: auth/handler.handler
   graphql:
-    handler: handler.graphql
+    handler: graphql/handler.handler
     events:
     - http:
         path: graphql

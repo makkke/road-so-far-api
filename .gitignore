@@ -34,8 +34,4 @@ node_modules
 
 public.pem
 
-playground.js
 .env
-.serverless
-api/graphql
-api/auth

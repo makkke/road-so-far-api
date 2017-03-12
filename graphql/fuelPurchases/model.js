@@ -1,11 +1,8 @@
 // import { FuelPurchase } from '../connectors/dynamodb'
 import uuid from 'uuid'
-import AWS from 'aws-sdk' // eslint-disable-line import/no-extraneous-dependencies
+import dynamodb from 'serverless-dynamodb-client'
 
-const dynamodb = new AWS.DynamoDB.DocumentClient({
-  region: 'localhost',
-  endpoint: 'http://localhost:8000',
-})
+const docClient = dynamodb.doc
 
 // export const queryFuelPurchases = userId => (
 //   new Promise((resolve, reject) => {
@@ -45,7 +42,7 @@ export const findFuelPurchaseById = id => (
       Key: { id },
     }
 
-    dynamodb.get(params, (err, data) => {
+    docClient.get(params, (err, data) => {
       if (err) {
         console.error(err)
         reject(err)
@@ -90,7 +87,7 @@ export const createFuelPurchase = (userId, fuelPurchase) => (
       },
     }
 
-    dynamodb.put(params, async (err) => {
+    docClient.put(params, async (err) => {
       if (err) {
         console.error(err)
         reject(err)

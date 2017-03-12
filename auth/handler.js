@@ -1,6 +1,9 @@
 import fs from 'fs'
 import { join } from 'path'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const generatePolicy = (principalId, effect, resource) => {
   const authResponse = {
@@ -23,7 +26,7 @@ const generatePolicy = (principalId, effect, resource) => {
   return authResponse
 }
 
-export default event => (
+const auth = event => (
   new Promise((resolve, reject) => {
     if (!event.authorizationToken) {
       reject(new Error('Unauthorized'))
@@ -31,7 +34,7 @@ export default event => (
     }
 
     const token = event.authorizationToken.substring(7) // remove "bearer " from token
-    const certificate = fs.readFileSync(join(__dirname, '../public.pem'))
+    const certificate = fs.readFileSync(join('public.pem'))
     const options = {
       audience: process.env.AUTH0_CLIENT_ID,
       algorithm: 'RS256',
@@ -46,3 +49,11 @@ export default event => (
     })
   })
 )
+
+export const handler = (event, context, callback) => {
+  auth(event)
+    .then(response => callback(null, response))
+    .catch(error => callback(error))
+}
+
+export default {}
