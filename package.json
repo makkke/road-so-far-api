@@ -51,6 +51,7 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.0",
+    "serverless": "^1.8.0",
     "serverless-build-plugin": "1.1.5",
     "serverless-dynamodb-local": "0.2.19",
     "serverless-offline": "3.10.2"
