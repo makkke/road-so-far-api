@@ -1,39 +1,28 @@
-// import { FuelPurchase } from '../connectors/dynamodb'
 import uuid from 'uuid'
-import dynamodb from 'serverless-dynamodb-client'
+import { doc } from 'serverless-dynamodb-client'
 
-const docClient = dynamodb.doc
+export const queryFuelPurchases = userId => (
+  new Promise((resolve, reject) => {
+    const params = {
+      TableName: process.env.DYNAMODB_FUEL_PURCHASES_TABLE,
+      IndexName: 'CreatedAtIndex',
+      KeyConditionExpression: 'userId = :userId',
+      ExpressionAttributeValues: {
+        ':userId': userId,
+      },
+      ScanIndexForward: false,
+    }
+    
+    doc.query(params, (err, data) => {
+      if (err) {
+        reject(err)
+        return
+      }
 
-// export const queryFuelPurchases = userId => (
-//   new Promise((resolve, reject) => {
-//     FuelPurchase
-//       .scan()
-//       .where('userId').equals(userId)
-//       .loadAll()
-//       .exec((err, result) => {
-//         if (err) {
-//           reject(err)
-//           return
-//         }
-//
-//         resolve(result.Items.map(x => x.attrs))
-//       })
-//   })
-// )
-
-// export const findFuelPurchaseById = id => (
-//   new Promise((resolve, reject) => {
-//     FuelPurchase
-//       .get(id, (err, fuelPurchase) => {
-//         if (err) {
-//           reject(err)
-//           return
-//         }
-//
-//         resolve(fuelPurchase ? fuelPurchase.attrs : null)
-//       })
-//   })
-// )
+      resolve(data.Items)
+    })
+  })
+)
 
 export const findFuelPurchaseById = id => (
   new Promise((resolve, reject) => {
@@ -42,9 +31,8 @@ export const findFuelPurchaseById = id => (
       Key: { id },
     }
 
-    docClient.get(params, (err, data) => {
+    doc.get(params, (err, data) => {
       if (err) {
-        console.error(err)
         reject(err)
         return
       }
@@ -53,20 +41,6 @@ export const findFuelPurchaseById = id => (
     })
   })
 )
-
-// export const createFuelPurchase = (userId, fuelPurchase) => (
-//   new Promise((resolve, reject) => {
-//     const savedFuelPurchase = new FuelPurchase({ ...fuelPurchase, userId })
-//     savedFuelPurchase.save((err) => {
-//       if (err) {
-//         reject(err)
-//         return
-//       }
-//
-//       resolve(savedFuelPurchase.attrs)
-//     })
-//   })
-// )
 
 export const createFuelPurchase = (userId, fuelPurchase) => (
   new Promise((resolve, reject) => {
@@ -87,9 +61,8 @@ export const createFuelPurchase = (userId, fuelPurchase) => (
       },
     }
 
-    docClient.put(params, async (err) => {
+    doc.put(params, async (err) => {
       if (err) {
-        console.error(err)
         reject(err)
         return
       }

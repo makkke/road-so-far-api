@@ -1,5 +1,5 @@
-require('babel-polyfill') // needed to for async/await
-
+// require('babel-polyfill') // needed to for async/await
+//
 import { merge } from 'lodash'
 import { makeExecutableSchema } from 'graphql-tools'
 
@@ -36,7 +36,7 @@ schema {
 `]
 const rootResolvers = {
   Query: {
-    // fuelPurchases: (root, args, context) => queryFuelPurchases(context.user.id),
+    fuelPurchases: (root, args, context) => queryFuelPurchases(context.user.id),
     fuelPurchase: async (root, args) => findFuelPurchaseById(args.id),
     currentUser(root, args, context) {
       return context.user || null

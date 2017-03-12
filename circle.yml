@@ -1,0 +1,40 @@
+version: 2
+
+executorType: docker
+
+containerInfo:
+  - image: makkke/node
+
+stages:
+  build:
+    workDir: ~/road-so-far-api
+    steps:
+      - type: checkout
+
+      - name: Install Node.js dependencies
+        type: shell
+        shell: /bin/bash
+        command: yarn install
+
+      - name: Lint Test
+        type: shell
+        shell: /bin/bash
+        command: yarn run test:lint
+
+      - name: Unit Test
+        type: shell
+        shell: /bin/bash
+        command: yarn run test:unit
+
+      - name: Build
+        type: shell
+        shell: /bin/bash
+        command: yarn run build
+
+      # - name: Deploy to production
+      #   type: deploy
+      #   shell: /bin/bash
+      #   command: |
+      #     if [ "${CIRCLE_BRANCH}" == "master" ]; then
+      #       aws s3 sync ./public s3://app.roadsofar.com/ --delete
+      #     fi

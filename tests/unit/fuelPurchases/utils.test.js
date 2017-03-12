@@ -4,7 +4,7 @@ import {
   convertGallonsToLiters,
   convertLitersToGallons,
   mapQuantityToLiters,
-} from '../../../src/fuelPurchases/utils'
+} from '../../../graphql/fuelPurchases/utils'
 
 test('convertGallonsToLiters: should convert us gallons to liters', (t) => {
   let liters = convertGallonsToLiters(10)

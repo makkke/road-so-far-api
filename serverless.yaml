@@ -54,10 +54,17 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: ${self:provider.environment.DYNAMODB_FUEL_PURCHASES_TABLE}
         AttributeDefinitions:
           -
             AttributeName: id
             AttributeType: S
+          -
+            AttributeName: userId
+            AttributeType: S
+          -
+            AttributeName: createdAt
+            AttributeType: N
         KeySchema:
           -
             AttributeName: id
@@ -65,4 +72,32 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DYNAMODB_FUEL_PURCHASES_TABLE}
+        GlobalSecondaryIndexes:
+        - IndexName: CreatedAtIndex
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+          # Projection:
+          #   NonKeyAttributes:
+          #     - user_id
+          #     - user_organization_id
+          #   ProjectionType: INCLUDE
+          # ProvisionedThroughput:
+          #   ReadCapacityUnits: 1
+          #   WriteCapacityUnits: 1
+        # - IndexName: UserGroupIndex
+        #   KeySchema:
+        #     - AttributeName: user_organization_id
+        #       KeyType: HASH
+        #   Projection:
+        #     ProjectionType: ALL
+        #   ProvisionedThroughput:
+        #     ReadCapacityUnits: 1
+        #     WriteCapacityUnits: 1
