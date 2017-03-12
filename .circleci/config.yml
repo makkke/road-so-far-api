@@ -8,34 +8,34 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Install Node.js dependencies
-          command: |
-            echo $AUTH0_CLIENT_SECRET
-            echo $AUTH0_CLIENT_SECRET > public.pem
-            cat public.pem
-
       # - run:
       #     name: Install Node.js dependencies
-      #     command: yarn install
-      #
-      # - run:
-      #     name: Lint Test
-      #     command: yarn run test:lint
-      #
-      # - run:
-      #     name: Unit Test
-      #     command: yarn run test:unit
-      #
-      # - run:
-      #     name: Build
-      #     command: yarn run build
-      #
-      # - run:
-      #     name: Deploy to production
       #     command: |
-      #       # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-      #         echo AUTH0_CLIENT_ID=\"$AUTH0_CLIENT_ID\" > .env
-      #         echo $AUTH0_CLIENT_SECRET > public.pem
-      #         yarn run deploy:production
-      #       # fi
+      #       echo $AUTH0_CLIENT_SECRET
+      #       echo $AUTH0_CLIENT_SECRET > public.pem
+      #       cat public.pem
+
+      - run:
+          name: Install Node.js dependencies
+          command: yarn install
+
+      - run:
+          name: Lint Test
+          command: yarn run test:lint
+
+      - run:
+          name: Unit Test
+          command: yarn run test:unit
+
+      - run:
+          name: Build
+          command: yarn run build
+
+      - run:
+          name: Deploy to production
+          command: |
+            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo AUTH0_CLIENT_ID=\"$AUTH0_CLIENT_ID\" > .env
+              echo $AUTH0_CLIENT_SECRET > public.pem
+              yarn run deploy:production
+            # fi
