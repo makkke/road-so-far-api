@@ -4,7 +4,6 @@ babel: true
 sourceMaps: false
 
 include:
-  - public.pem
   - .babelrc
 
 functions:

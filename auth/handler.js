@@ -34,13 +34,13 @@ const auth = event => (
     }
 
     const token = event.authorizationToken.substring(7) // remove "bearer " from token
-    const certificate = fs.readFileSync(join('public.pem'))
+    const secret = process.env.AUTH0_CLIENT_SECRET
     const options = {
       audience: process.env.AUTH0_CLIENT_ID,
       algorithm: 'RS256',
     }
 
-    jwt.verify(token, certificate, options, (err, decoded) => {
+    jwt.verify(token, secret, options, (err, decoded) => {
       if (err) {
         reject(new Error('Unauthorized'))
         return

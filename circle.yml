@@ -11,32 +11,37 @@ stages:
     steps:
       - type: checkout
 
-      - name: Install Node.js dependencies
+      - name: test
         type: shell
         shell: /bin/bash
-        command: yarn install
+        command: echo $AUTH0_CLIENT_ID
 
-      - name: Lint Test
-        type: shell
-        shell: /bin/bash
-        command: yarn run test:lint
-
-      - name: Unit Test
-        type: shell
-        shell: /bin/bash
-        command: yarn run test:unit
-
-      - name: Build
-        type: shell
-        shell: /bin/bash
-        command: yarn run build
+      # - name: Install Node.js dependencies
+      #   type: shell
+      #   shell: /bin/bash
+      #   command: yarn install
+      #
+      # - name: Lint Test
+      #   type: shell
+      #   shell: /bin/bash
+      #   command: yarn run test:lint
+      #
+      # - name: Unit Test
+      #   type: shell
+      #   shell: /bin/bash
+      #   command: yarn run test:unit
+      #
+      # - name: Build
+      #   type: shell
+      #   shell: /bin/bash
+      #   command: yarn run build
 
       # TODO: add integration testing
 
-      - name: Deploy to production
-        type: deploy
-        shell: /bin/bash
-        command: |
-          # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            yarn run deploy:production
-          # fi
+      # - name: Deploy to production
+      #   type: deploy
+      #   shell: /bin/bash
+      #   command: |
+      #     # if [ "${CIRCLE_BRANCH}" == "master" ]; then
+      #       yarn run deploy:production
+      #     # fi
