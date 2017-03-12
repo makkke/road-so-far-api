@@ -11,8 +11,7 @@ jobs:
       - run:
           name: Install Node.js dependencies
           command: |
-            echo $AUTH0_CLIENT_SECRET
-            echo $AUTH0_CLIENT_SECRET > public.pem
+            echo $AUTH0_CLIENT_SECRET | tr " " "\n" > public.pem
             cat public.pem
 
       # - run:
