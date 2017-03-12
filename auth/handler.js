@@ -1,5 +1,3 @@
-import fs from 'fs'
-import { join } from 'path'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
