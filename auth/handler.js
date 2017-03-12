@@ -33,10 +33,8 @@ const auth = event => (
       return
     }
 
-    const token = event.authorizationToken.substring(7) // remove "bearer " from token
-    const certificate = fs.readFileSync(join('public.pem'))
-    console.log('id', process.env.AUTH0_CLIENT_ID)
-    console.log('certificate', certificate)
+    const token = event.authorizationToken.substring(7) // remove 'bearer '
+    const certificate = fs.readFileSync(join('auth0.cer'))
     const options = {
       audience: process.env.AUTH0_CLIENT_ID,
       algorithm: 'RS256',

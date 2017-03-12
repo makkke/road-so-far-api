@@ -7,34 +7,35 @@ API service for Road so Far.
 ### Configuration
 
 Rename `.env.default` to `.env` and replace with real values.
+Download a signing certificate from Auth0 and save in root of project as `auth0.cer`.
 
 ### Install
 
 Install project dependencies:
-```
-yarn install
+```sh
+$> yarn install
 ```
 
 Install DynamoDB local and run in as a separate process:
-```
-yarn run db:install
-yarn run db:start
+```sh
+$> yarn run db:install
+$> yarn run db:start
 ```
 
 Start project in development mode:
-```
-yarn start
+```sh
+$> yarn start
 ```
 
 ### Testing
-```
-yarn run test:lint # linting tests
-yarn run test:unit # unit tests
+```sh
+$> yarn run test:lint # linting tests
+$> yarn run test:unit # unit tests
 ```
 
 ## Deploy
 
-Deploy to AWS Lambda:
-```
-yarn run deploy
+Deploy to AWS Lambda for testing:
+```sh
+$> yarn run deploy
 ```
