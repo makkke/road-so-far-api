@@ -37,6 +37,6 @@ stages:
         type: deploy
         shell: /bin/bash
         command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          # if [ "${CIRCLE_BRANCH}" == "master" ]; then
             yarn run deploy:production
-          fi
+          # fi

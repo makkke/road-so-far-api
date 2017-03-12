@@ -3,13 +3,6 @@ method: bundle
 babel: true
 sourceMaps: false
 
-modules:
-  exclude: [] # excluded from the root node_modules
-
-  # deepExclude: # excluded from nested node_modules
-  #   - xmlbuilder # this breaks the build
-  #   - punycode # this breaks the build
-
 include:
   - public.pem
   - .babelrc
@@ -22,7 +15,3 @@ functions:
   graphql:
     include:
       - "graphql/**"
-
-    # exclude:
-    #   - "function/one/**"
-    #   - "lib/one/**"
