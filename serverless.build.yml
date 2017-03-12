@@ -6,6 +6,7 @@ sourceMaps: false
 include:
   - .babelrc
   - .env
+  - public.pem
 
 functions:
   auth:

@@ -1,3 +1,5 @@
+import fs from 'fs'
+import { join } from 'path'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
@@ -32,13 +34,13 @@ const auth = event => (
     }
 
     const token = event.authorizationToken.substring(7) // remove "bearer " from token
-    const secret = process.env.AUTH0_CLIENT_SECRET
+    const certificate = fs.readFileSync(join('public.pem'))
     const options = {
       audience: process.env.AUTH0_CLIENT_ID,
       algorithm: 'RS256',
     }
 
-    jwt.verify(token, secret, options, (err, decoded) => {
+    jwt.verify(token, certificate, options, (err, decoded) => {
       if (err) {
         reject(new Error('Unauthorized'))
         return
