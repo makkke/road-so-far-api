@@ -1,26 +1,41 @@
-# Road so Far API
+# Road So Far API
 
-API service for Road so Far
+API service for Road so Far.
 
-## Development
-```
-$ npm run start:dev
-```
+## Setup
 
-## Testing
+### Configuration
 
-Unit testing
-```
-$ npm run test:unit
-```
+Rename `.env.default` to `.env` and replace with real values.
+Download a signing certificate from Auth0 and save in root of project as `auth0.cer`.
 
-Integration testing
-```
-$ make test
+### Install
+
+Install project dependencies:
+```sh
+$> yarn install
 ```
 
-## Deployment
+Install DynamoDB local and run in as a separate process:
+```sh
+$> yarn run db:install
+$> yarn run db:start
 ```
-$ npm run build
-$ npm run start
+
+Start project in development mode:
+```sh
+$> yarn start
+```
+
+### Testing
+```sh
+$> yarn run test:lint # linting tests
+$> yarn run test:unit # unit tests
+```
+
+## Deploy
+
+Deploy to AWS Lambda for testing:
+```sh
+$> yarn run deploy
 ```

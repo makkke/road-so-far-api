@@ -1,0 +1,18 @@
+method: bundle
+
+babel: true
+sourceMaps: false
+
+include:
+  - .babelrc
+  - .env
+  - auth0.cer
+
+functions:
+  auth:
+    include:
+      - "auth/**"
+
+  graphql:
+    include:
+      - "graphql/**"

@@ -1,0 +1,36 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: /road-so-far-api
+    docker:
+      - image: makkke/node
+    steps:
+      - checkout
+
+      - run:
+          name: Install Node.js dependencies
+          command: yarn install
+
+      - run:
+          name: Lint Test
+          command: yarn run test:lint
+
+      - run:
+          name: Unit Test
+          command: yarn run test:unit
+
+      - run:
+          name: Build
+          command: yarn run build
+
+      - run:
+          name: Deploy to production
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo AUTH0_CLIENT_ID=\"$AUTH0_CLIENT_ID\" > .env
+              echo "-----BEGIN CERTIFICATE-----" > auth0.cer
+              echo $AUTH0_CLIENT_SECRET | tr " " "\n" >> auth0.cer
+              echo "-----END CERTIFICATE-----" >> auth0.cer
+              yarn run deploy:production
+            fi
